@@ -1,5 +1,6 @@
 package com.example.simplechatapp_android;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,7 +22,12 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+//https://www.youtube.com/watch?v=OlfHlM3Lvf8
 public class Login extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
@@ -29,6 +35,7 @@ public class Login extends AppCompatActivity {
     private final static int RC_SIGN_IN = 123;
     Button button;
 
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://chat-app-ec877-default-rtdb.firebaseio.com/");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,13 +93,40 @@ public class Login extends AppCompatActivity {
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         mAuth.signInWithCredential(credential).addOnCompleteListener(this, task -> {
             if(task.isSuccessful()) {
+
                 FirebaseUser user = mAuth.getCurrentUser();
+                createDatabaseUser(user.getUid().toString(),user.getEmail().toString(),user.getDisplayName().toString());
                 Intent intent = new Intent(getApplicationContext(), Home.class);
                 startActivity(intent);
             } else {
                 Toast.makeText(Login.this, "Sorry auth failed.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void createDatabaseUser(String uid, String email, String username) {
+        try{
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.child("users").hasChild(uid)){
+                        Toast.makeText(Login.this,"User Exists!",Toast.LENGTH_LONG);
+                    }else{
+                        databaseReference.child("users").child(uid).child("email").setValue(email);
+                        databaseReference.child("users").child(uid).child("name").setValue(username);
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }catch (Exception e){
+
+        }
     }
 
     @Override

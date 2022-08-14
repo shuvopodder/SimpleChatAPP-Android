@@ -3,8 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Android Projects/Sample Simple Work/SimpleChatAPPAndroid/app/src/main/res/layout/activity_home.xml" value="0.1" />
+        <entry key="..\:/Android Projects/Sample Simple Work/SimpleChatAPPAndroid/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1425" />
+        <entry key="..\:/Android Projects/Sample Simple Work/SimpleChatAPPAndroid/app/src/main/res/drawable/round_back_light_10.xml" value="0.1425" />
+        <entry key="..\:/Android Projects/Sample Simple Work/SimpleChatAPPAndroid/app/src/main/res/layout/activity_home.xml" value="0.2" />
         <entry key="..\:/Android Projects/Sample Simple Work/SimpleChatAPPAndroid/app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="..\:/Android Projects/Sample Simple Work/SimpleChatAPPAndroid/app/src/main/res/layout/activity_main.xml" value="0.12" />
+        <entry key="..\:/Android Projects/Sample Simple Work/SimpleChatAPPAndroid/app/src/main/res/layout/message_adapter_layout.xml" value="0.1" />
+        <entry key="..\:/Android Projects/Sample Simple Work/SimpleChatAPPAndroid/app/src/main/res/menu/bottom_bar.xml" value="0.25" />
       </map>
     </option>
   </component>
